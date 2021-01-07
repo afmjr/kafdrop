@@ -28,9 +28,9 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-obsidiandynamics-kafdrop</id>
-            <name>obsidiandynamics-kafdrop</name>
-            <url>https://api.bintray.com/maven/obsidiandynamics/kafdrop/main/;publish=1</url>
+            <id>vermicfintech-github</id>
+            <name>vermicfintech-kafdrop</name>
+            <url>https://maven.pkg.github.com/vermicFintech/kafdrop</url>
         </repository>
     </distributionManagement>
 
@@ -66,7 +66,7 @@
 		    <version>${protobuf.version}</version>
 		</dependency>		    
 		<!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java-util -->
-		<dependency>
+        <dependency>
 		    <groupId>com.google.protobuf</groupId>
 		    <artifactId>protobuf-java-util</artifactId>
 		    <version>${protobuf.version}</version>		    
@@ -258,7 +258,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.2.0</version>
                 <configuration>
-                    <imageName>obsidiandynamics/kafdrop</imageName>
+                    <imageName>vermicfin/kafdrop</imageName>
                     <forceTags>true</forceTags>
                     <dockerDirectory>${project.build.directory}/docker-ready</dockerDirectory>
                     <imageTags>

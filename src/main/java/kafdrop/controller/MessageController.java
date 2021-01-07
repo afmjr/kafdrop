@@ -272,6 +272,8 @@ public final class MessageController {
       deserializer = new ProtobufMessageDeserializer(topicName, fullDescFile, msgTypeName);
     } else if (format == MessageFormat.MSGPACK) {
       deserializer = new MsgPackMessageDeserializer();
+    } else if (format == MessageFormat.EXTERNAL) {
+      deserializer = ExternalDeserializer.lookup(topicName);
     } else {
       deserializer = new DefaultMessageDeserializer();
     }
