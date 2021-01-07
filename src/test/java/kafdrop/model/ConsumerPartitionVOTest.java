@@ -18,6 +18,8 @@
 
 package kafdrop.model;
 
+import kafdrop.util.ExternalDeserializer;
+import kafdrop.util.MessageDeserializer;
 import org.junit.*;
 
 import static org.junit.Assert.*;
@@ -39,5 +41,14 @@ public final class ConsumerPartitionVOTest {
     doLagTest(5, 10, 2, 5);
     doLagTest(6, 6, 2, 0);
     doLagTest(5, 10, -1, 5);
+  }
+
+  @Test
+  public void checkExternalSerde() {
+    MessageDeserializer serdes = ExternalDeserializer.lookup("refdata-slim-accounts");
+    serdes = ExternalDeserializer.lookup("refdata-slim-accounts");
+    serdes = ExternalDeserializer.lookup("refdata-slim-accounts");
+    serdes = ExternalDeserializer.lookup("refdata-slim-accounts");
+    Assert.assertNotNull("No serdes!", serdes);
   }
 }
