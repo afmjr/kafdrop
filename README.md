@@ -39,10 +39,12 @@ This fork has added the possibilities to use external deserializers. When "Exter
 the logic will use Java Service Provider mechanism to search for implementation of the 
 se.vermiculus.kafdrop.spi.ExternalDeserializerFactory interface in the classpath, and if the factory claims to support
 the given topic name the provided deserializer will be used.
+It is configured to default to port 9005, to not interfere with the original KafDrop that uses 9000.
 
 ### Building step
 * maven:package - prepare jar files and docker information
-* docker:build - builds a Docker image and deploys it into Docker
+* docker:build - builds a Docker image and deploys it into Docke
+### Start in docker
 * docker-compose-drop-only.yaml will start KafDrop only
 * docker-compose.yaml will start KafDrop and Kafka as of KafDrop
 
