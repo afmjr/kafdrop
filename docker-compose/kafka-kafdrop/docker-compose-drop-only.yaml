@@ -1,0 +1,21 @@
+version: '3.5'
+networks:
+  vericlear:
+    name: vericlear_net
+services:
+
+  kafdrop:
+    build: 
+      context: ./devBuild
+    image: vermicfintech/kafdrop
+    restart: "no"
+    ports:
+      - "9005:9005"
+    networks:
+      - vericlear
+    environment:
+      SERVER_SERVLET_CONTEXTPATH: "/"
+      KAFKA_BROKERCONNECT: "kafka-1:29092"
+      JVM_OPTS: "-Xms16M -Xmx48M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"
+
+

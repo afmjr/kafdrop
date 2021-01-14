@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.obsidiandynamics.kafdrop</groupId>
+    <groupId>se.vermiculus.kafdrop</groupId>
     <artifactId>kafdrop</artifactId>
     <version>3.28.0-SNAPSHOT</version>
 
@@ -25,14 +25,6 @@
         <developerConnection>scm:git:git@github.com:obsidiandynamics/kafdrop.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
-
-    <distributionManagement>
-        <repository>
-            <id>vermicfintech-github</id>
-            <name>vermicfintech-kafdrop</name>
-            <url>https://maven.pkg.github.com/vermicFintech/kafdrop</url>
-        </repository>
-    </distributionManagement>
 
     <repositories>
         <repository>
@@ -59,6 +51,11 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>se.vermiculus</groupId>
+            <artifactId>spi-kafdrop</artifactId>
+            <version>1.0</version>
+        </dependency>
     	<!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java -->
 		<dependency>
 		    <groupId>com.google.protobuf</groupId>
@@ -219,6 +216,15 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- External deserializer -->
+        <dependency>
+            <groupId>se.vermiculus</groupId>
+            <artifactId>common-kafka</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -245,7 +251,15 @@
                     </descriptors>
                 </configuration>
                 <version>2.2.1</version>
-            </plugin>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>            </plugin>
             <plugin>
                 <!-- Build an executable JAR -->
                 <groupId>org.apache.maven.plugins</groupId>
@@ -266,7 +280,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.2.0</version>
                 <configuration>
-                    <imageName>vermicfin/kafdrop</imageName>
+                    <imageName>vermicfintech/kafdrop</imageName>
                     <forceTags>true</forceTags>
                     <dockerDirectory>${project.build.directory}/docker-ready</dockerDirectory>
                     <imageTags>
@@ -341,4 +355,12 @@
             </resource>
         </resources>
     </build>
+
+    <!-- turn off upload distributionManagement>
+        <repository>
+            <id>vermicfintech-kafdrop</id>
+            <name>GitHubPackages</name>
+            <url>https://maven.pkg.github.com/VermicFinTech/kafdrop</url>
+        </repository>
+    </distributionManagement> -->
 </project>
