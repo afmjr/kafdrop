@@ -34,6 +34,18 @@ Optional, additional integration:
 # Getting Started
 You can run the Kafdrop JAR directly, via Docker, or in Kubernetes.
 
+## Vermiculus notes!
+This fork has added the possibilities to use external deserializers. When "External" is used as message format
+the logic will use Java Service Provider mechanism to search for implementation of the 
+se.vermiculus.kafdrop.spi.ExternalDeserializerFactory interface in the classpath, and if the factory claims to support
+the given topic name the provided deserializer will be used.
+
+### Building step
+* maven:package - prepare jar files and docker information
+* docker:build - builds a Docker image and deploys it into Docker
+* docker-compose-drop-only.yaml will start KafDrop only
+* docker-compose.yaml will start KafDrop and Kafka as of KafDrop
+
 ## Running from JAR
 ```sh
 java --add-opens=java.base/sun.nio.ch=ALL-UNNAMED \

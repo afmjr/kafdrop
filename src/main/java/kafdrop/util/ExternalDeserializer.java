@@ -1,9 +1,11 @@
 package kafdrop.util;
 
-import kafdrop.spi.DeserializerFactory;
+import com.fasterxml.jackson.databind.deser.DeserializerFactory;
+import org.apache.avro.file.CodecFactory;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import se.vermiculus.kafdrop.spi.ExternalDeserializerFactory;
 
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -20,27 +22,24 @@ public class ExternalDeserializer implements MessageDeserializer {
     }
 
     public static MessageDeserializer lookup(String topicName) {
-        logger.info("Lookup external deserializer for topic: " + topicName);
-        ServiceLoader<DeserializerFactory> loader = ServiceLoader.load(DeserializerFactory.class);
-        printPackage();
-        Optional<DeserializerFactory> factory = loader.findFirst();
-        if (factory.isPresent()) {
-            logger.info("Found deserializer: " + factory.get().getClass().getName());
-            if (factory.get().supportsTopic(topicName)) {
-                Deserializer<Object> deserializer = factory.get().getDeserializer(topicName);
-                logger.info("Will use deserializer: " + deserializer.getClass().getSimpleName());
+        logger.trace("Lookup external deserializer for topic: " + topicName);
+        ServiceLoader<ExternalDeserializerFactory> loader = ServiceLoader.load(ExternalDeserializerFactory.class);
+
+        for (ExternalDeserializerFactory factory : loader) {
+            Deserializer<Object> deserializer = factory.getDeserializer(topicName);
+            if (factory.supportsTopic(topicName)) {
+                logger.trace("Will use deserializer: " + deserializer.getClass().getSimpleName());
                 return new ExternalDeserializer(deserializer);
+            }
+            else {
+                logger.info("Found Deserializer ({}) doesn't support topic {}",
+                        deserializer.getClass().getName(), topicName);
             }
         }
         logger.info("No external deserializer found. Will use default!");
         return new DefaultMessageDeserializer();
     }
 
-    private static void printPackage() {
-        logger.info("Lookup meta-file");
-        URL url = ExternalDeserializer.class.getClassLoader().getResource("kafdrop.spi.DeserializerFactory");
-        logger.info("got: " + url);
-    }
     @Override
     public String deserializeMessage(ByteBuffer buffer) {
         return externalDeserializer.deserialize(topic, buffer.array()).toString();
