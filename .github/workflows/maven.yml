@@ -28,13 +28,12 @@ jobs:
     - name: Setup Maven settings
       uses: s4u/maven-settings-action@v2.3.0
       with:
-        servers: |
-          [{"id": "vermicfintech-spi-kafdrop",
-            "username": "$GITHUB_ACTOR",
-            "password": "$GITHUB_TOKEN" },
+        servers: '[{"id": "vermicfintech-spi-kafdrop",
+            "username": "${{GITHUB_ACTOR}}",
+            "password": "${{GITHUB_TOKEN}}"},
            {"id": "vermicfintech-vericlear",
-            "username": "$GITHUB_ACTOR",
-            "password": "$GITHUB_TOKEN" }]
+            "username": ${{GITHUB_ACTOR}},
+            "password": ${{GITHUB_TOKEN}}}]'
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
