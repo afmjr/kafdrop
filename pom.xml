@@ -36,12 +36,12 @@
             <url>https://packages.confluent.io/maven/</url>
         </repository>
         <repository>
-            <id>github</id>
+            <id>vermicfintech-spi-kafdrop</id>
             <name>vermicfintech-spi-kafdrop</name>
             <url>https://maven.pkg.github.com/VermicFinTech/spi-kafdrop</url>
         </repository>
         <repository>
-            <id>github</id>
+            <id>vermicfintech-vericlear</id>
             <name>vermicfintech-vericlear</name>
             <url>https://maven.pkg.github.com/VermicFinTech/vericlear</url>
         </repository>
