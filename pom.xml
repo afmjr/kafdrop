@@ -40,6 +40,11 @@
             <name>vermicfintech-spi-kafdrop</name>
             <url>https://maven.pkg.github.com/VermicFinTech/spi-kafdrop</url>
         </repository>
+        <repository>
+            <id>vermicfintech-vericlear</id>
+            <name>vermicfintech-vericlear</name>
+            <url>https://maven.pkg.github.com/VermicFinTech/vericlear</url>
+        </repository>
 
     </repositories>
 
@@ -213,6 +218,15 @@
             <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- External deserializer -->
+        <dependency>
+            <groupId>se.vermiculus</groupId>
+            <artifactId>common-kafka</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+
 
     </dependencies>
 
