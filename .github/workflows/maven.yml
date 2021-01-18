@@ -28,13 +28,12 @@ jobs:
     - name: maven-settings
       uses: s4u/maven-settings-action@v2
       with:
-        servers: '[{"id": "vermicfintech-spi-kafdrop", "username": "${GITHUB_USER}", "password": "${GITHUB_PWD}"}]'
+        servers: '[{"id": "vermicfintech-spi-kafdrop", "username": "${GITHUB_ACTOR}", "password": "${GITHUB_TOKEN}"}]'
 
     - name: Build with Maven
       run: mvn -B package -s .github/workflows/action-maven-settings.xml --file pom.xml
       env:
-        GITHUB_USER: ${{github.actor}}
-        GITHUB_PWD: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
 # No deployment. Should later be deployed to docker register
