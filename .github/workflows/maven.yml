@@ -25,17 +25,20 @@ jobs:
     - name: Check Java version
       run: java -version
 
+    - name: What doeas maven settings look like before
+      run: cat /home/runner/.m2/settings.xml
+
     - name: maven-settings
       uses: s4u/maven-settings-action@v2
       with:
         servers: '[{"id": "vermicfintech-spi-kafdrop", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}"},
                    {"id": "vermicfintech-vericlear", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}"}]'
 
-    - name: How does it look
+    - name: What doeas maven settings look like after
       run: cat /home/runner/.m2/settings.xml
 
     - name: Build with Maven
-      run: mvn -U -B package  --file pom.xml
+      run: mvn -B package --file pom.xml
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
