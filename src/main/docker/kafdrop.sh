@@ -59,6 +59,13 @@ else
   rm $KAFKA_KEYSTORE_FILE |& > /dev/null | true
 fi
 
+RUNTIME_JARS="runtimeJars"
+if [ -d "$RUNTIME_JARS" ]; then
+  # Take action if $RUNTIME_JARS exists. #
+  echo "Installing jar files from ${RUNTIME_JARS}..."
+  cp $RUNTIME_JARS/* /kafdrop*/lib
+fi
+
 ARGS="--add-opens=java.base/sun.nio.ch=ALL-UNNAMED -Xss256K \
      $JMX_ARGS \
      $HEAP_ARGS \
