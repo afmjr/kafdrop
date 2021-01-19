@@ -39,9 +39,36 @@ This fork has added the possibilities to use external deserializers. When "Exter
 the logic will use Java Service Provider mechanism to search for implementation of the 
 se.vermiculus.kafdrop.spi.ExternalDeserializerFactory interface in the classpath, and if the factory claims to support
 the given topic name the provided deserializer will be used.
-It is configured to default to port 9005, to not interfere with the original KafDrop that uses 9000.
+It is configured to default to port 9000.
+
+### Settings
+KafDrop is a maven project. Maven reads personal settings from ~/.m2/settings.xml.
+These setting should provide credentials for the access to GitHub Packages Repository.
+Add the servers in the below manner, where USER is you GitHub login name, and PAT the content of your 
+Personal Access Token generated on GitHub:
+
+``` xml
+<servers>
+    <server>
+      <id>vermicfintech-kafdrop</id>
+      <username>USER</username>
+      <password>PAT</password>
+    </server>
+    <server>
+      <id>vermicfintech-spi-kafdrop</id>
+      <username>USER</username>
+      <password>PAT</password>
+    </server>
+    <server>
+      <id>vermicfintech-vericlear</id>
+      <username>USER</username>
+      <password>PAT</password>
+    </server>
+  </servers>
+``` 
 
 ### Building step
+Note! run with -DskipTests=true
 * maven:package - prepare jar files and docker information
 * docker:build - builds a Docker image and deploys it into Docke
 ### Start in docker
