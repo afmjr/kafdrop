@@ -28,8 +28,8 @@ jobs:
     - name: maven-settings
       uses: s4u/maven-settings-action@v2
       with:
-        servers: '[{"id": "vermicfintech-spi-kafdrop", "username": "${GITHUB_ACTOR}", "password": "${GITHUB_TOKEN}"},
-                   {"id": "vermicfintech-vericlear", "username": "${GITHUB_USER}", "password": "${GITHUB_TOKEN}"}]'
+        servers: '[{"id": "vermicfintech-spi-kafdrop", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}"},
+                   {"id": "vermicfintech-vericlear", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}"}]'
 
     - name: How does it look
       run: cat /home/runner/.m2/settings.xml
