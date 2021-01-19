@@ -32,7 +32,7 @@ jobs:
                    {"id": "vermicfintech-vericlear", "username": "${GITHUB_USER}", "password": "${GITHUB_TOKEN}"}]'
 
     - name: How does it look
-      run: ls -R
+      run: cat /home/runner/.m2/settings.xml
 
     - name: Build with Maven
       run: mvn -B package  --file pom.xml
