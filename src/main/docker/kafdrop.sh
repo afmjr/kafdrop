@@ -62,8 +62,17 @@ fi
 RUNTIME_JARS="runtimeJars"
 if [ -d "$RUNTIME_JARS" ]; then
   # Take action if $RUNTIME_JARS exists. #
+  ls -l ${RUNTIME_JARS}
+  ls -l lib | grep "1.0.0"
+
   echo "Installing jar files from ${RUNTIME_JARS}..."
-  cp $RUNTIME_JARS/* /kafdrop*/lib
+  for f in $RUNTIME_JARS/*
+   do
+     dest=${f##*/}
+     dest=${dest%%-SNAPSHOT.*}
+     echo "Installing jar file $f as ${dest}*..."
+     cp $f /kafdrop*/lib/${dest}*
+   done
 fi
 
 ARGS="--add-opens=java.base/sun.nio.ch=ALL-UNNAMED -Xss256K \
