@@ -11,11 +11,12 @@ on:
 
 jobs:
   build:
-
+    name: Build KafDrop
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Check out
+      uses: actions/checkout@v2
 
     - name: Set up OpenJDK 15
       uses: actions/setup-java@v1
@@ -25,14 +26,14 @@ jobs:
     - name: Check Java version
       run: java -version
 
-    - name: What doeas maven settings look like before
-      run: cat /home/runner/.m2/settings.xml
 
     - name: maven-settings
       uses: s4u/maven-settings-action@v2
       with:
-        servers: '[{"id": "vermicfintech-spi-kafdrop", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}"},
-                   {"id": "vermicfintech-vericlear", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}"}]'
+        repositories: '[{ "id": "vermicfintech-spi-kafdrop", "url": "https://maven.pkg.github.com/VermicFinTech/spi-kafdrop" },
+                  { "id": "vermicfintech-vericlear", "url": "https://maven.pkg.github.com/VermicFinTech/vericlear" }]'
+        servers: '[{ "id": "vermicfintech-spi-kafdrop", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}" },
+                   { "id": "vermicfintech-vericlear", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}" }]'
 
     - name: What doeas maven settings look like after
       run: cat /home/runner/.m2/settings.xml
@@ -41,6 +42,17 @@ jobs:
       run: mvn -B package --file pom.xml
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    name: Publish KafDrop container
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Docker Build
+      run: mvn -B docker:build --file pom.xml
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
 # Use provided settings file with mvn command: -s .github/workflows/action-maven-settings.xml
 # No deployment. Should later be deployed to docker register
