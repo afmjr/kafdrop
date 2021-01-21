@@ -69,11 +69,11 @@ Personal Access Token generated on GitHub:
 
 ### Building step
 Note! run with -DskipTests=true
-* maven:package - prepare jar files and docker information
+* package - prepare jar files and docker information
 * docker:build - builds a Docker image and deploys it into Docke
 ### Start in docker
-* docker-compose-drop-only.yaml will start KafDrop only
-* docker-compose.yaml will start KafDrop and Kafka as of KafDrop
+* docker-compose-drop-only.yaml will start KafDrop only. Use this one and start Kafka container from Vericlear.
+* docker-compose.yaml is the original one that will start kafDrop together with an instance of obsidiandynamics/kafka. Do not use for Vermiculus! 
 
 ## Running from JAR
 ```sh
