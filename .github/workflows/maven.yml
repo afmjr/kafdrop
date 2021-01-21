@@ -39,6 +39,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
       env:
+        GITHUB_ACTOR: ${{ github.actor }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish:
@@ -50,6 +51,7 @@ jobs:
     - name: Docker Build
       run: mvn -B docker:build --file pom.xml
       env:
+        GITHUB_ACTOR: ${{ github.actor }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
