@@ -30,8 +30,6 @@ jobs:
     - name: maven-settings
       uses: s4u/maven-settings-action@v2
       with:
-        repositories: '[{ "id": "vermicfintech-spi-kafdrop", "url": "https://maven.pkg.github.com/VermicFinTech/spi-kafdrop" },
-                  { "id": "vermicfintech-vericlear", "url": "https://maven.pkg.github.com/VermicFinTech/vericlear" }]'
         servers: '[{ "id": "vermicfintech-spi-kafdrop", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}" },
                    { "id": "vermicfintech-vericlear", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}" }]'
 
