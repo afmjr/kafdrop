@@ -37,13 +37,15 @@
         </repository>
         <repository>
             <id>vermicfintech-spi-kafdrop</id>
-            <url>https://maven.pkg.github.com/VermicFinTech/spi-kafdrop</url>
+            <name>vermicfintech-spi-kafdrop</name>
+            <url>https://maven.pkg.github.com/vermicfintech/spi-kafdrop</url>
             <releases><enabled>true</enabled></releases>
             <snapshots><enabled>true</enabled></snapshots>
         </repository>
         <repository>
             <id>vermicfintech-vericlear</id>
-            <url>https://maven.pkg.github.com/VermicFinTech/vericlear</url>
+            <name>vermicfintech-vericlear</name>
+            <url>https://maven.pkg.github.com/vermicfintech/vericlear</url>
             <releases><enabled>true</enabled></releases>
             <snapshots><enabled>true</enabled></snapshots>
         </repository>
@@ -346,7 +348,9 @@
         <repository>
             <id>vermicfintech-kafdrop</id>
             <name>GitHubPackages</name>
-            <url>https://maven.pkg.github.com/VermicFinTech/kafdrop</url>
+            <url>https://maven.pkg.github.com/vermicfintech/kafdrop</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
         </repository>
     </distributionManagement> -->
 </project>
