@@ -41,6 +41,11 @@ se.vermiculus.kafdrop.spi.ExternalDeserializerFactory interface in the classpath
 the given topic name the provided deserializer will be used.
 It is configured to default to port 9000.
 
+### Java version
+This project is now setup to use java 11. A long term support version.
+You need to set JAVA_HOME to point to a valid java 11 installation.
+
+
 ### Settings
 KafDrop is a maven project. Maven reads personal settings from ~/.m2/settings.xml.
 These setting should provide credentials for the access to GitHub Packages Repository.
@@ -48,29 +53,57 @@ Add the servers in the below manner, where USER is you GitHub login name, and PA
 Personal Access Token generated on GitHub:
 
 ``` xml
+<profiles>
+    <profile>
+      <id>github</id>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>https://repo1.maven.org/maven2</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+		<repository>
+          <id>github</id>
+          <url>https://maven.pkg.github.com/vermicfintech/kafdrop</url>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+	   </repositories>
+    </profile>
+  </profiles>
 <servers>
-    <server>
-      <id>vermicfintech-kafdrop</id>
-      <username>USER</username>
-      <password>PAT</password>
+   <server>
+      <id>github</id>
+      <username>[github user]</username>
+      <password>[git hub token]</password>
     </server>
-    <server>
-      <id>vermicfintech-spi-kafdrop</id>
-      <username>USER</username>
-      <password>PAT</password>
-    </server>
-    <server>
-      <id>vermicfintech-vericlear</id>
-      <username>USER</username>
-      <password>PAT</password>
+	<server>
+      <id>vermicfintech</id>
+      <username>[github user]</username>
+      <password>[git hub token]</password>
     </server>
   </servers>
 ``` 
 
 ### Building step
 **Note!** run with -DskipTests=true if you have the image already in docker as it will fail.
-* package - prepare jar files and docker information
-* docker:build - builds a Docker image and deploys it into your local Docker
+* package - prepare jar files and docker information as in [./mvnw -e -DskipTests=true package]
+* docker:build - builds a Docker image and deploys it into your local Docker as in [./mvnw -e -DskipTests=true docker:build]
+
+To prepare docker and a session to the Docker repository in GitHub, 
+login to ghcr.io, with a valid username and PAT.
+You could use the github-login.sh script in the root of vericlear project, 
+if you have credentials in ~/.gradle/gradle.properties
+Tag the new image for gitHub with version and latest as in:
+* docker image tag vermicfintech/kafdrop:latest ghcr.io/vermicfintech/kafdrop:latest
+* docker image tag vermicfintech/kafdrop:3.28.1 ghcr.io/vermicfintech/kafdrop:3.28.1
+
+When ready for final deploy push the image to GitHub:
+* docker push ghcr.io/vermicfintech/kafdrop:latest
+* docker push ghcr.io/vermicfintech/kafdrop:3.28.1
+
 ### Start in docker
 * docker-compose-drop-only.yaml will start KafDrop only. Use this one and start Kafka container from Vericlear.
 * docker-compose.yaml is the original one that will start kafDrop together with an instance of obsidiandynamics/kafka. Do not use for Vermiculus! 
