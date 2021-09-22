@@ -160,9 +160,13 @@ public final class MessageController {
 
     if (!messageForm.isEmpty() && !errors.hasErrors()) {
 
+      final MessageFormat keyFormat = messageForm.getKeyFormat() == null
+              ? defaultKeyFormat : messageForm.getKeyFormat();
+      final MessageFormat messageFormat = messageForm.getFormat() == null
+              ? defaultFormat : messageForm.getFormat();
       final var deserializers = new Deserializers(
-          getDeserializer(topicName, messageForm.getKeyFormat(), messageForm.getDescFile(),messageForm.getMsgTypeName()),
-          getDeserializer(topicName, messageForm.getFormat(), messageForm.getDescFile(), messageForm.getMsgTypeName())
+          getDeserializer(topicName, keyFormat, messageForm.getDescFile(),messageForm.getMsgTypeName()),
+          getDeserializer(topicName, messageFormat, messageForm.getDescFile(), messageForm.getMsgTypeName())
       );
 
       model.addAttribute("messages",
@@ -179,7 +183,7 @@ public final class MessageController {
 
 
   /**
-   * Returns the selected nessagr format based on the
+   * Returns the selected message format based on the
    * form submission
    * @param format String representation of format name
    * @return
@@ -191,6 +195,8 @@ public final class MessageController {
       return MessageFormat.PROTOBUF;
     } else if ("MSGPACK".equalsIgnoreCase(format)){
       return MessageFormat.MSGPACK;
+    } else if ("EXTERNAL".equalsIgnoreCase(format)){
+      return MessageFormat.EXTERNAL;
     } else {
       return MessageFormat.DEFAULT;
     }
@@ -276,7 +282,7 @@ public final class MessageController {
     } else if (format == MessageFormat.MSGPACK) {
       deserializer = new MsgPackMessageDeserializer();
     } else if (format == MessageFormat.EXTERNAL) {
-      deserializer = ExternalDeserializer.lookup(topicName);
+      deserializer = ExternalDeserializers.lookup(topicName, messageFormatProperties);
     } else {
       deserializer = new DefaultMessageDeserializer();
     }

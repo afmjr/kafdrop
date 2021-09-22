@@ -37,13 +37,23 @@ You can run the Kafdrop JAR directly, via Docker, or in Kubernetes.
 ## Vermiculus notes!
 This fork has added the possibilities to use external deserializers. When "External" is used as message format
 the logic will use Java Service Provider mechanism to search for implementation of the 
-se.vermiculus.kafdrop.spi.ExternalDeserializerFactory interface in the classpath, and if the factory claims to support
-the given topic name the provided deserializer will be used.
+se.vermiculus.kafdrop.spi.ExternalDeserializerFactory interface in the folder given by the 
+property: vericlear.kafdrop.serdesDirectory, and if the factory claims to support
+the given topic name the provided deserializer will be used. Entry point in the class ExternalDeserializers.
+The default value for vericlear.kafdrop.serdesDirectory is runTimeJars, which currently is the name for the volume
+mounted in the container running kafDrop.
 It is configured to default to port 9000.
 
+Added mina-core as a dependency. We could consider if the necessary dependencies for the deserializer also should
+be loaded by the class loader reading from kafdrop.externalDeserializer.location. Then we need to find an automatic
+way of adding dependent libraries to this location.
+
+Added message.format = EXTERNAL in application.yaml to use as default.
+
+
 ### Java version
-This project is now setup to use java 11. A long term support version.
-You need to set JAVA_HOME to point to a valid java 11 installation.
+This project is now setup to use java 16. Waiting for version 17, a long term support version.
+You need to set JAVA_HOME to point to a valid java 16 installation.
 
 
 ### Settings

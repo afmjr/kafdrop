@@ -14,6 +14,7 @@ public class MessageFormatConfiguration {
   @ConfigurationProperties(prefix = "message")
   public static final class MessageFormatProperties {
     private MessageFormat format;
+    private String externalFormatLocation;
 
     @PostConstruct
     public void init() {
@@ -29,6 +30,14 @@ public class MessageFormatConfiguration {
 
     public void setFormat(MessageFormat format) {
       this.format = format;
+    }
+
+    public String getExternalFormatLocation() {
+      return externalFormatLocation != null ? externalFormatLocation : "";
+    }
+
+    public void setExternalFormatLocation(String externalFormatLocation) {
+      this.externalFormatLocation = externalFormatLocation;
     }
   }
 }

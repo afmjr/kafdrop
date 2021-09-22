@@ -26,6 +26,10 @@ management:
 kafdrop.monitor:
   clientId: Kafdrop
 
+message:
+    format: EXTERNAL
+    externalFormatLocation: runtimeJars
+
 kafka:
   brokerConnect: localhost:9092
   isSecured: false
