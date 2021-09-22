@@ -56,7 +56,8 @@ public class ExternalDeserializers {
     private static Optional<Deserializer<Object>> internalLookup(
             String topicName,
             MessageFormatConfiguration.MessageFormatProperties properties) {
-        logger.info("Lookup external deserializer for topic: {}", topicName);
+        logger.info("Lookup external deserializer for topic: {} in {}",
+                topicName, properties.getExternalFormatLocation());
         Deserializer<Object> deserializer = null;
         try {
             ServiceLoader<ExternalDeserializerFactory> loader =

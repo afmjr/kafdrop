@@ -59,25 +59,6 @@ else
   rm $KAFKA_KEYSTORE_FILE |& > /dev/null | true
 fi
 
-RUNTIME_JARS="runtimeJars"
-if [ -d "$RUNTIME_JARS" ]; then
-  # Take action if $RUNTIME_JARS exists. #
-  ls -l ${RUNTIME_JARS}
-  ls -l lib | grep "1.1.0"
-
-  echo "Installing jar files from ${RUNTIME_JARS}..."
-  for f in $RUNTIME_JARS/*
-   do
-     dest=${f##*/}
-     dest=`ls kafdrop*/lib/${dest%%-SNAPSHOT.*}* 2>/dev/null`
-     if [ -f "$dest" ]; then
-       echo "Installing jar file $f as \"${dest}\""
-       cp -f $f ${dest}
-     else
-       echo "File $f is not needed and not present in original jar"
-     fi
-   done
-fi
 
 ARGS="--add-opens=java.base/sun.nio.ch=ALL-UNNAMED -Xss256K \
      $JMX_ARGS \

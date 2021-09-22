@@ -18,7 +18,6 @@
 
 package kafdrop.config;
 
-import com.google.common.base.*;
 import org.springframework.boot.autoconfigure.condition.*;
 import org.springframework.context.annotation.*;
 import org.springframework.http.*;
@@ -26,13 +25,13 @@ import springfox.documentation.*;
 import springfox.documentation.builders.*;
 import springfox.documentation.spi.*;
 import springfox.documentation.spring.web.plugins.*;
-import springfox.documentation.swagger2.annotations.*;
+
+import java.util.function.Predicate;
 
 /**
  *  Auto configuration for Swagger. Can be disabled by setting {@code swagger.enabled=false}.
  */
 @Configuration
-@EnableSwagger2
 @ConditionalOnProperty(value = "swagger.enabled", matchIfMissing = true)
 public class SwaggerConfiguration {
   @Bean
@@ -53,8 +52,9 @@ public class SwaggerConfiguration {
    *  Swagger Predicate for only selecting JSON endpoints.
    */
   public final class JsonRequestHandlerPredicate implements Predicate<RequestHandler> {
+
     @Override
-    public boolean apply(RequestHandler input) {
+    public boolean test(RequestHandler input) {
       return input.produces().contains(MediaType.APPLICATION_JSON);
     }
   }
@@ -64,7 +64,7 @@ public class SwaggerConfiguration {
    */
   public final class IgnoreDebugPathPredicate implements Predicate<String> {
     @Override
-    public boolean apply(String input) {
+    public boolean test(String input) {
       return !input.startsWith("/actuator");
     }
   }
