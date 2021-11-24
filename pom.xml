@@ -5,7 +5,7 @@
 
     <groupId>se.vermiculus.kafdrop</groupId>
     <artifactId>kafdrop</artifactId>
-    <version>3.28.1</version>
+    <version>3.28.2</version>
 
     <description>For when you have a Kafka cluster to monitor</description>
 
@@ -20,9 +20,9 @@
         <testcontainers.version>1.14.3</testcontainers.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>16</maven.compiler.source>
-        <maven.compiler.target>16</maven.compiler.target>
-        <java.version>16</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <java.version>17</java.version>
     </properties>
     <scm>
         <connection>scm:git:git@github.com:obsidiandynamics/kafdrop.git</connection>

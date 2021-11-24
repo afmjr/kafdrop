@@ -52,8 +52,8 @@ Added message.format = EXTERNAL in application.yaml to use as default.
 
 
 ### Java version
-This project is now setup to use java 16. Waiting for version 17, a long term support version.
-You need to set JAVA_HOME to point to a valid java 16 installation.
+This project is now setup to use java 17. 
+You need to set JAVA_HOME to point to a valid java 17 installation.
 
 
 ### Settings
@@ -108,11 +108,11 @@ You could use the github-login.sh script in the root of vericlear project,
 if you have credentials in ~/.gradle/gradle.properties
 Tag the new image for gitHub with version and latest as in:
 * docker image tag vermicfintech/kafdrop:latest ghcr.io/vermicfintech/kafdrop:latest
-* docker image tag vermicfintech/kafdrop:3.28.1 ghcr.io/vermicfintech/kafdrop:3.28.1
+* docker image tag vermicfintech/kafdrop:3.28.1 ghcr.io/vermicfintech/kafdrop:3.28.2
 
 When ready for final deploy push the image to GitHub:
 * docker push ghcr.io/vermicfintech/kafdrop:latest
-* docker push ghcr.io/vermicfintech/kafdrop:3.28.1
+* docker push ghcr.io/vermicfintech/kafdrop:3.28.2
 
 ### Start in docker
 * docker-compose-drop-only.yaml will start KafDrop only. Use this one and start Kafka container from Vericlear.
