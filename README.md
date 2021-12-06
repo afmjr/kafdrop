@@ -108,11 +108,11 @@ You could use the github-login.sh script in the root of vericlear project,
 if you have credentials in ~/.gradle/gradle.properties
 Tag the new image for gitHub with version and latest as in:
 * docker image tag vermicfintech/kafdrop:latest ghcr.io/vermicfintech/kafdrop:latest
-* docker image tag vermicfintech/kafdrop:3.28.1 ghcr.io/vermicfintech/kafdrop:3.28.2
+* docker image tag vermicfintech/kafdrop:3.28.1 ghcr.io/vermicfintech/kafdrop:3.28.3
 
 When ready for final deploy push the image to GitHub:
 * docker push ghcr.io/vermicfintech/kafdrop:latest
-* docker push ghcr.io/vermicfintech/kafdrop:3.28.2
+* docker push ghcr.io/vermicfintech/kafdrop:3.28.3
 
 ### Start in docker
 * docker-compose-drop-only.yaml will start KafDrop only. Use this one and start Kafka container from Vericlear.
