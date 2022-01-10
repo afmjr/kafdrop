@@ -9,6 +9,12 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+
+  # Java Verion/Distribution configuration
+  java-version: 17
+  java-distribution: temurin
+
 jobs:
   build:
     name: Build KafDrop
@@ -18,14 +24,16 @@ jobs:
     - name: Check out
       uses: actions/checkout@v2
 
-    - name: Set up OpenJDK 11
-      uses: actions/setup-java@v1
+    # Setup JDK
+    - name: Set up JDK version ${{ env.java-version }} / distribution ${{ env.java-distribution }}
+      uses: actions/setup-java@v2
       with:
-        java-version: 11
+        java-version: ${{ env.java-version }}
+        distribution: ${{ env.java-distribution }}
+        cache: 'maven'
 
     - name: Check Java version
       run: java -version
-
 
     - name: maven-settings
       uses: s4u/maven-settings-action@v2
